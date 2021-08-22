@@ -1,23 +1,44 @@
 // alert("Hello, Tonya");
 
+const container_size = 600;
+
+const n_cell = 60;
+const cell_size = container_size/n_cell;
+
 const svgns = "http://www.w3.org/2000/svg";
 const container = document.getElementById( 'field' );
-let x = 100;
-let y = 100;
-const x_start = 100;
-const y_start = 100;
-const r = 10;
-const step = 2 * r;
+
+const x_start = Math.round(Math.random()* n_cell);
+const y_start = Math.round(Math.random()* n_cell);
+const r = 1 * cell_size;
+const step = cell_size;
 const fill_color = "blue";
-const stroke_color = "lightblue"
+const stroke_color = "lightblue";
 
-const circle = document.createElementNS(svgns, 'circle');
-circle.setAttributeNS(null, 'style', 'fill: ' + fill_color + '; stroke:' + stroke_color + '; stroke-width: 1px;' );
-circle.setAttributeNS(null, 'cx', x_start);
-circle.setAttributeNS(null, 'cy', y_start);
-circle.setAttributeNS(null, 'r', r);
-container.appendChild(circle);
+//x, y - cell numbers from 0 to 60
+function create_circle(x, y, fill_color, stroke_color) {
+    const circle = document.createElementNS(svgns, 'circle');
+    circle.setAttributeNS(null, 'style', 'fill:' + fill_color + '; stroke:' + stroke_color + '; stroke-width: 1px;' );
+    circle.setAttributeNS(null, 'cx', x * cell_size);
+    circle.setAttributeNS(null, 'cy', y * cell_size);
+    circle.setAttributeNS(null, 'r', r);
+    return circle;
+}
 
+// apple
+const x_start_apple = Math.round(Math.random()* n_cell);
+const y_start_apple = Math.round(Math.random()* n_cell);
+const apple = create_circle(x_start_apple, y_start_apple, "red", "red");
+container.appendChild(apple);
+
+
+
+//snake
+const snake = create_circle(x_start, y_start, "blue", "lightblue");
+container.appendChild(snake);
+
+let x = x_start * cell_size;
+let y = y_start * cell_size;
 document.addEventListener('keydown', function(e) {
     switch (e.keyCode) {
         case 37:
@@ -37,8 +58,8 @@ document.addEventListener('keydown', function(e) {
             // alert('down');
             break;
     }
-    circle.setAttributeNS(null, 'cx', x);
-    circle.setAttributeNS(null, 'cy', y);
+    snake.setAttributeNS(null, 'cx', x);
+    snake.setAttributeNS(null, 'cy', y);
 });
 
 
@@ -46,28 +67,3 @@ document.addEventListener('keydown', function(e) {
 
 
 
-
-// for (var x = 0; x < 500; x += 50) {
-//     for (var y = 0; y < 300; y += 50) {
-//     var circle = document.createElementNS(svgns, 'circle');
-//     circle.setAttributeNS(null, 'cx', x);
-//     circle.setAttributeNS(null, 'cy', y);
-//     circle.setAttributeNS(null, 'r', 50);
-//     circle.setAttributeNS(null, 'style', 'fill: none; stroke: lightblue; stroke-width: 1px;' );
-//     container.appendChild(circle);
-//     }
-// }
-
-
-
-
-// for (var x = 0; x < 500; x += 50) {
-//     for (var y = 0; y < 300; y += 50) {
-//         var circle = document.createElementNS(svgns, 'circle');
-//         circle.setAttributeNS(null, 'cx', x);
-//         circle.setAttributeNS(null, 'cy', y);
-//         circle.setAttributeNS(null, 'r', 50);
-//         circle.setAttributeNS(null, 'style', 'fill: none; stroke: lightblue; stroke-width: 1px;' );
-//         container.appendChild(circle);
-//     }
-// }
