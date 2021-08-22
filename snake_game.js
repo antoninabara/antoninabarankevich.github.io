@@ -2,38 +2,46 @@
 
 const svgns = "http://www.w3.org/2000/svg";
 const container = document.getElementById( 'field' );
+let x = 100;
+let y = 100;
+const x_start = 100;
+const y_start = 100;
+const r = 10;
+const step = 2 * r;
+const fill_color = "blue";
+const stroke_color = "lightblue"
 
 const circle = document.createElementNS(svgns, 'circle');
-circle.setAttributeNS(null, 'style', 'fill: green; stroke: lightblue; stroke-width: 1px;' );
-circle.setAttributeNS(null, 'cx', 100);
-circle.setAttributeNS(null, 'cy', 100);
-circle.setAttributeNS(null, 'r', 10);
+circle.setAttributeNS(null, 'style', 'fill: ' + fill_color + '; stroke:' + stroke_color + '; stroke-width: 1px;' );
+circle.setAttributeNS(null, 'cx', x_start);
+circle.setAttributeNS(null, 'cy', y_start);
+circle.setAttributeNS(null, 'r', r);
 container.appendChild(circle);
 
-let my_coord_x = 100;
-let y = 100;
 document.addEventListener('keydown', function(e) {
     switch (e.keyCode) {
         case 37:
            // alert('left');
-           my_coord_x -= 10;
+            x -= step;
             break;
         case 38:
            // alert('up');
-           y += 10;
+           y -= step;
             break;
         case 39:
-            my_coord_x += 10;
+            x += step;
             // alert('right');
             break;
         case 40:
-            y -= 10;
+            y += step;
             // alert('down');
             break;
     }
-    circle.setAttributeNS(null, 'cx', my_coord_x);
+    circle.setAttributeNS(null, 'cx', x);
     circle.setAttributeNS(null, 'cy', y);
 });
+
+
 
 
 
